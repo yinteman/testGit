@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dom练习</title>
+</head>
+<body>
+   <filedset>
+        <legend>color choose</legend>
+       <ul>
+           <li> <input type="radio" name="color" id="colorRed" value="1"  onclick="getvalue()">
+               <label for="colorRed">colorRed</label>
+           </li>
+           <li> <input type="radio" name="color" id="colorBlue" value="2" onclick="getvalue()">
+               <label for="colorBlue">colorBlue</label>
+           </li>
+           <li> <input type="radio" name="color" id="colorGreen" value="3" onclick="getvalue()">
+               <label for="colorGreen">colorGreen
+               </label>
+           </li>
+       </ul>
+       <!-- this is comment !-->
+       <div id="textTest" data-name="hello">Hello word</div>
+   </filedset>
+<fieldset>
+    <div id="myDiv">Right clicl or Ctrl+clifk me to get a custom context menu </div>
+    <ul id="menu" style="position: absolute;visibility: hidden;background-color: silver">
+        <li>keybord</li>
+        <li>java</li>
+        <li>html</li>
+    </ul>
+</fieldset>
+<div   id="range" ><p>Hello</p></div>
+</body>
+<script>
+    function getvalue(){
+    var redios = document.getElementsByName('color');
+    console.log(redios)
+    var k ;
+    for(var i =0;i<redios.length;i++){
+        if(redios[i].checked == true ) k = redios[i].value;
+    }
+    console.log(k)
+    }
+   window.onload = function(){
+       var myDiv = document.getElementById('myDiv')
+       myDiv.addEventListener('click',changeColor);
+     /*  myDiv.addEventListener('contextmenu',function(e){
+           e.preventDefault();
+           var menu = document.getElementById('menu');
+           menu.style.left = e.clientX +'px';
+           menu.style.top = e.clientY + 'px';
+           menu.style.visibility = 'visible';
+       })
+       document.addEventListener('click',function(e){
+           document.getElementById("menu").style.visibility = 'hidden';
+       })*/
+       var event = document.createEvent('MouseEvents');
+       event.initMouseEvent('click',true,true,document.defaultView,0,0,0,0,0,false,false,false,false,0,null)
+       myDiv.dispatchEvent(event)
+     //富文本编辑的操作
+       var edit = document.getElementById('range');
+       var rang = document.createRange();
+       var p1 = edit.lastChild.firstChild;
+       console.log(edit)
+       rang.selectNode(p1);
+       var span = document.createElement('span');
+       span.style.backgroundColor = "green";
+       rang.surroundContents(span);
+   }
+
+
+    function changeColor(e){
+        e.target.style.backgroundColor ='yellow';
+    }
+
+</script>
+</html>
